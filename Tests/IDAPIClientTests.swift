@@ -292,8 +292,9 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.reportUser(address: address, reason: "Not good") { success, error in
-                            expect(success).to(beTruthy())
+                            expect(success).to(beTrue())
                             expect(error).to(beNil())
+                            
                             done()
                         }
                     }
@@ -307,8 +308,10 @@ class IDAPIClientTests: QuickSpec {
                     let token = "f500a3cc32dbb78b"
 
                     waitUntil { done in
-                        subject.adminLogin(loginToken: token) { success, _ in
-                            expect(success).to(beTruthy())
+                        subject.adminLogin(loginToken: token) { success, error in
+                            expect(success).to(beTrue())
+                            expect(error).to(beNil())
+                            
                             done()
                         }
                     }
@@ -352,6 +355,10 @@ class IDAPIClientTests: QuickSpec {
                         subject.fetchTimestamp { timestamp, error in
                             expect(timestamp).to(beNil())
                             expect(error).toNot(beNil())
+                            
+                            expect(error?.responseStatus).to(equal(401))
+                            expect(error?.type).to(equal(.invalidResponseStatus))
+                            
                             done()
                         }
                     }
@@ -365,7 +372,8 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.registerUserIfNeeded { status in
-                            expect(status.rawValue).to(equal(UserRegisterStatus.failed.rawValue))
+                            expect(status).to(equal(UserRegisterStatus.failed))
+                            
                             done()
                         }
                     }
@@ -376,11 +384,19 @@ class IDAPIClientTests: QuickSpec {
                     mockTeapot.overrideEndPoint("timestamp", withFilename: "timestamp")
                     subject = IDAPIClient(teapot: mockTeapot)
 
-                    let testImage = UIImage(named: "testImage.png", in: Bundle(for: IDAPIClientTests.self), compatibleWith: nil)
+                    guard let testImage = UIImage(named: "testImage.png", in: Bundle(for: IDAPIClientTests.self), compatibleWith: nil) else {
+                        fail("Could not create test image")
+                        
+                        return
+                    }
                     waitUntil { done in
-                        subject.updateAvatar(testImage!) { success, error in
+                        subject.updateAvatar(testImage) { success, error in
                             expect(success).to(beFalse())
+                            expect(error).toNot(beNil())
+                            
+                            expect(error?.responseStatus).to(equal(401))
                             expect(error?.type).to(equal(.invalidResponseStatus))
+                            
                             done()
                         }
                     }
@@ -405,9 +421,13 @@ class IDAPIClientTests: QuickSpec {
                     ]
 
                     waitUntil { done in
-                        subject.updateUser(userDict) { success, message in
+                        subject.updateUser(userDict) { success, error in
                             expect(success).to(beFalse())
-                            expect(message).toNot(beNil())
+                            expect(error).toNot(beNil())
+                            
+                            expect(error?.responseStatus).to(equal(401))
+                            expect(error?.type).to(equal(.invalidResponseStatus))
+                            
                             done()
                         }
                     }
@@ -422,6 +442,7 @@ class IDAPIClientTests: QuickSpec {
                     waitUntil { done in
                         subject.retrieveUser(username: username) { user in
                             expect(user).to(beNil())
+                            
                             done()
                         }
                     }
@@ -436,6 +457,7 @@ class IDAPIClientTests: QuickSpec {
                     waitUntil { done in
                         subject.findContact(name: username) { user in
                             expect(user).to(beNil())
+                            
                             done()
                         }
                     }
@@ -450,6 +472,7 @@ class IDAPIClientTests: QuickSpec {
                     waitUntil { done in
                         subject.searchContacts(name: search) { users in
                             expect(users.count).to(equal(0))
+                            
                             done()
                         }
                     }
@@ -461,8 +484,13 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.getTopRatedPublicUsers { users, error in
-                            expect(users!.count).to(equal(0))
-                            expect(error!).toNot(beNil())
+                            expect(users).toNot(beNil())
+                            expect(error).toNot(beNil())
+                            
+                            expect(users?.count).to(equal(0))
+                            expect(error?.responseStatus).to(equal(401))
+                            expect(error?.type).to(equal(.invalidResponseStatus))
+
                             done()
                         }
                     }
@@ -474,8 +502,13 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.getLatestPublicUsers { users, error in
-                            expect(users!.count).to(equal(0))
+                            expect(users).toNot(beNil())
                             expect(error).toNot(beNil())
+                            
+                            expect(users?.count).to(equal(0))
+                            expect(error?.responseStatus).to(equal(401))
+                            expect(error?.type).to(equal(.invalidResponseStatus))
+
                             done()
                         }
                     }
@@ -491,7 +524,10 @@ class IDAPIClientTests: QuickSpec {
                     waitUntil { done in
                         subject.reportUser(address: address, reason: "Not good") { success, error in
                             expect(success).to(beFalse())
+                            expect(error).toNot(beNil())
+                            
                             expect(error?.type).to(equal(.invalidResponseStatus))
+                            expect(error?.responseStatus).to(equal(401))
                             done()
                         }
                     }
@@ -505,8 +541,13 @@ class IDAPIClientTests: QuickSpec {
                     let token = "f500a3cc32dbb78b"
 
                     waitUntil { done in
-                        subject.adminLogin(loginToken: token) { success, _ in
+                        subject.adminLogin(loginToken: token) { success, error in
                             expect(success).to(beFalse())
+                            expect(error).toNot(beNil())
+                            
+                            expect(error?.type).to(equal(.invalidResponseStatus))
+                            expect(error?.responseStatus).to(equal(401))
+                            
                             done()
                         }
                     }
