@@ -627,14 +627,14 @@ typealias DappCompletion = (_ dapps: [Dapp]?, _ error: ToshiError?) -> Void
     func getDapps(limit: Int = 10, completion: @escaping DappCompletion) {
         let path = "/v1/dapps?limit=\(limit)"
         teapot.get(path) { result in
-            var dapps: [Dapp] = []
+            var dapps: [Dapp]?
             var resultError: ToshiError?
             
             switch result {
             case .success(let json, _):
                 guard let data = json?.data else {
                     DispatchQueue.main.async {
-                        completion([], nil)
+                        completion(nil, .invalidPayload)
                     }
                     return
                 }
@@ -645,7 +645,7 @@ typealias DappCompletion = (_ dapps: [Dapp]?, _ error: ToshiError?) -> Void
                     dappResults = try jsonDecoder.decode(DappResults.self, from: data)
                 } catch {
                     DispatchQueue.main.async {
-                        completion(nil, .invalidPayload)
+                        completion(nil, .invalidResponseJSON)
                     }
                     return
                 }

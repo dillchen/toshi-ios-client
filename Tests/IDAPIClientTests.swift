@@ -548,6 +548,23 @@ class IDAPIClientTests: QuickSpec {
                         }
                     }
                 }
+                
+                it("gets a list of dapps") {
+                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "", statusCode: .unauthorized)
+                    subject = IDAPIClient(teapot: mockTeapot)
+                    
+                    waitUntil { done in
+                        subject.getDapps { dapps, error in
+                            expect(error).toNot(beNil())
+                            expect(dapps).to(beNil())
+                            
+                            expect(error?.responseStatus).to(equal(401))
+                            expect(error?.type).to(equal(.invalidResponseStatus))
+                            
+                            done()
+                        }
+                    }
+                }
             }
         }
     }
