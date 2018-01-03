@@ -193,12 +193,24 @@ class IDAPIClientTests: QuickSpec {
                     let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "searchContacts")
                     subject = IDAPIClient(teapot: mockTeapot)
 
-                    let search = "search key"
+                    let search = "search result"
 
                     waitUntil { done in
                         subject.searchContacts(name: search) { users in
                             expect(users.count).to(equal(2))
-                            expect(users.first!.name).to(equal("Search result 1"))
+                            expect(users.map { $0.name }).to(equal([
+                                    "Search result 1",
+                                    "Search result 2"
+                                ]))
+                            expect(users.map { $0.location }).to(equal([
+                                    "Amsterdam",
+                                    "Springfield"
+                                ]))
+                            expect(users.map { $0.username }).to(equal([
+                                    "marijnschilling",
+                                    "homersimpson"
+                                ]))
+                            
                             done()
                         }
                     }
