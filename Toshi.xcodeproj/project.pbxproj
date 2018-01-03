@@ -162,6 +162,8 @@
 		33CF513A1FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
 		33CF513B1FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
 		33F1B9A71FCC3E3900D186AB /* TokenUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F1B9A61FCC3E3900D186AB /* TokenUserTests.swift */; };
+		33F6D22E1FFD18E200AB0DCC /* userAfterImageUpdate.json in Resources */ = {isa = PBXBuildFile; fileRef = 33F6D22D1FFD18E100AB0DCC /* userAfterImageUpdate.json */; };
+		33F6D2301FFD1BED00AB0DCC /* userAfterDataUpdate.json in Resources */ = {isa = PBXBuildFile; fileRef = 33F6D22F1FFD1BEC00AB0DCC /* userAfterDataUpdate.json */; };
 		33FD936B1FE953480082B9D8 /* Dapp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FD936A1FE953480082B9D8 /* Dapp.swift */; };
 		33FD936D1FE95F4E0082B9D8 /* dapps.json in Resources */ = {isa = PBXBuildFile; fileRef = 33FD936C1FE95F4E0082B9D8 /* dapps.json */; };
 		33FD936E1FE960F00082B9D8 /* Dapp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FD936A1FE953480082B9D8 /* Dapp.swift */; };
@@ -936,6 +938,8 @@
 		33CF51341FD184AB00293FD1 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		33CF51381FD1952500293FD1 /* StringCaseListable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringCaseListable.swift; sourceTree = "<group>"; };
 		33F1B9A61FCC3E3900D186AB /* TokenUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUserTests.swift; sourceTree = "<group>"; };
+		33F6D22D1FFD18E100AB0DCC /* userAfterImageUpdate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userAfterImageUpdate.json; sourceTree = "<group>"; };
+		33F6D22F1FFD1BEC00AB0DCC /* userAfterDataUpdate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userAfterDataUpdate.json; sourceTree = "<group>"; };
 		33FD936A1FE953480082B9D8 /* Dapp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dapp.swift; sourceTree = "<group>"; };
 		33FD936C1FE95F4E0082B9D8 /* dapps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dapps.json; sourceTree = "<group>"; };
 		3F0DBA781E2F9F3F471A6BAD /* Pods-CocoaPods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods-Tests/Pods-CocoaPods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2098,6 +2102,8 @@
 				D197B707B59B3F92F8A4B3EC /* getLatestPublicUsers.json */,
 				D197B29F0030A48233E69AD9 /* nonExistingUser.json */,
 				D197B12C40488CB1523BB212 /* user.json */,
+				33F6D22D1FFD18E100AB0DCC /* userAfterImageUpdate.json */,
+				33F6D22F1FFD1BEC00AB0DCC /* userAfterDataUpdate.json */,
 				D197BA847282226E502C8CEE /* getTopRatedPublicUsers.json */,
 				D197B4747DA95DF531E0C300 /* searchContacts.json */,
 				D197B3AC0E3346D86F7A4559 /* testImage.png */,
@@ -2321,6 +2327,7 @@
 				D197B2A45E12329713413EAE /* createUnsignedTransaction.json in Resources */,
 				D197B6CAA22DFAA0B0FFE15D /* sendSignedTransaction.json in Resources */,
 				D197BA6E5DC09E84D524D1A2 /* getBalance.json in Resources */,
+				33F6D2301FFD1BED00AB0DCC /* userAfterDataUpdate.json in Resources */,
 				D197BA0569377AF2E56C7393 /* getFeaturedApps.json in Resources */,
 				D197B30022F9B4D9D27325F7 /* getTopRatedApps.json in Resources */,
 				D197B74275EBC3A229F0D4D9 /* timestamp.json in Resources */,
@@ -2330,6 +2337,7 @@
 				D197B637C5223A239BA0EF67 /* getTopRatedPublicUsers.json in Resources */,
 				33FD936D1FE95F4E0082B9D8 /* dapps.json in Resources */,
 				D197B22F0A1803EEBB6819FE /* searchContacts.json in Resources */,
+				33F6D22E1FFD18E200AB0DCC /* userAfterImageUpdate.json in Resources */,
 				D197B0C5E61A152AFA61B5DF /* testImage.png in Resources */,
 				D197B8B87F4A0DCA761DE9D6 /* retrieveUser.json in Resources */,
 				D197B4425A9FE7A36B983DE1 /* getLatestPublicUsers.json in Resources */,

@@ -35,6 +35,9 @@ class IDAPIClientTests: QuickSpec {
                         subject.fetchTimestamp { timestamp, error in
                             expect(timestamp).toNot(beNil())
                             expect(error).to(beNil())
+                            
+                            expect(timestamp).to(equal(1503648141))
+                            
                             done()
                         }
                     }
@@ -48,49 +51,86 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.registerUserIfNeeded { status in
-                            expect(status.rawValue).to(equal(UserRegisterStatus.registered.rawValue))
+                            expect(status).to(equal(UserRegisterStatus.registered))
+ 
                             done()
                         }
                     }
                 }
 
                 it("updates Avatar") {
-                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "user")
+                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "userAfterImageUpdate")
                     mockTeapot.overrideEndPoint("timestamp", withFilename: "timestamp")
                     subject = IDAPIClient(teapot: mockTeapot)
 
-                    let testImage = UIImage(named: "testImage.png", in: Bundle(for: IDAPIClientTests.self), compatibleWith: nil)
+                    guard let testImage = UIImage(named: "testImage.png", in: Bundle(for: IDAPIClientTests.self), compatibleWith: nil) else {
+                        fail("Could not create test image")
+                        return
+                    }
                     waitUntil { done in
-                        subject.updateAvatar(testImage!) { success, error in
-                            expect(success).to(beTruthy())
+                        subject.updateAvatar(testImage) { success, error in
+                            expect(success).to(beTrue())
                             expect(error).to(beNil())
+                            
+                            expect(TokenUser.current?.avatarPath).to(equal("https://token-id-service-development.herokuapp.com/avatar/0x1ad0bb2d14595fa6ad885e53eaaa6c82339f9b98.png"))
+                            
                             done()
                         }
                     }
                 }
 
                 it("updates the user") {
-                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "user")
+                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "userAfterDataUpdate")
                     mockTeapot.overrideEndPoint("timestamp", withFilename: "timestamp")
                     subject = IDAPIClient(teapot: mockTeapot)
 
+                    let tokenID = "van Diemenstraat 328"
+                    let paymentAddress = "Longstreet 200"
+                    let username = "marijn2000"
+                    let about = "test user dict!"
+                    let location = "Leiden"
+                    let name = "Marijntje"
+                    let isPublic = true
+                    let avatarPath = "http://www.someURL.com"
+                    
                     let userDict: [String: Any] = [
-                        "token_id": "van Diemenstraat 328",
-                        "payment_address": "Longstreet 200",
-                        "username": "marijn2000",
-                        "about": "test user dict!",
-                        "location": "Leiden",
-                        "name": "Marijntje",
-                        "avatar": "someURL",
+                        "token_id": tokenID,
+                        "payment_address": paymentAddress,
+                        "username": username,
+                        "about": about,
+                        "location": location,
+                        "name": name,
+                        "avatar": avatarPath,
                         "is_app": false,
-                        "public": true,
+                        "public": isPublic,
                         "verified": false
                     ]
 
                     waitUntil { done in
                         subject.updateUser(userDict) { success, message in
-                            expect(success).to(beTruthy())
+                            expect(success).to(beTrue())
                             expect(message).to(beNil())
+                            
+                            guard let user = TokenUser.current else {
+                                fail("No current user!")
+                                done()
+                                
+                                return
+                            }
+                            
+                            expect(user.address).to(equal(tokenID))
+                            expect(user.paymentAddress).to(equal(paymentAddress))
+                            expect(user.username).to(equal(username))
+                            expect(user.about).to(equal(about))
+                            expect(user.location).to(equal(location))
+                            expect(user.name).to(equal(name))
+                            expect(user.avatarPath).to(equal(avatarPath))
+                            expect(user.isPublic).to(equal(isPublic))
+                            
+                            expect(user.isApp).to(beFalse())
+                            expect(user.averageRating).to(equal(3.1))
+                            expect(user.reputationScore).to(equal(2.4))
+                            
                             done()
                         }
                     }
@@ -100,11 +140,24 @@ class IDAPIClientTests: QuickSpec {
                     let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "user")
                     subject = IDAPIClient(teapot: mockTeapot)
 
-                    let username = "testUsername"
+                    let username = "marijnschilling"
 
                     waitUntil { done in
                         subject.retrieveUser(username: username) { user in
                             expect(user).toNot(beNil())
+                            
+                            expect(user?.name).to(equal("Marijn Schilling"))
+                            expect(user?.paymentAddress).to(equal("0x1ad0bb2d14595fa6ad885e53eaaa6c82339f9b98"))
+                            expect(user?.isApp).to(beFalse())
+                            expect(user?.reputationScore).to(equal(2.2))
+                            expect(user?.username).to(equal("marijnschilling"))
+                            expect(user?.averageRating).to(equal(3.0))
+                            expect(user?.address).to(equal("0x6f70800cb47f7f84b6c71b3693fc02595eae7378"))
+                            expect(user?.location).to(equal("Amsterdam"))
+                            expect(user?.about).to(equal("Oh hai tests"))
+                            expect(user?.avatarPath).to(equal("https://token-id-service-development.herokuapp.com/avatar/0x6f70800cb47f7f84b6c71b3693fc02595eae7378.png"))
+                            expect(user?.isPublic).to(beFalse())
+                            
                             done()
                         }
                     }
