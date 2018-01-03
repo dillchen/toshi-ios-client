@@ -324,19 +324,15 @@ class IDAPIClientTests: QuickSpec {
                     waitUntil { done in
                         subject.getDapps { dapps, toshiError in
                             expect(toshiError).to(beNil())
-                            guard let dapps = dapps else {
-                                fail("No dapps for you")
-                                done()
-                                return
-                            }
+                            expect(dapps).toNot(beNil())
                             
-                            expect(dapps.count).to(equal(4))
-                            expect(dapps.map { $0.name }).to(equal([
-                                                            "Cryptokitties",
-                                                            "NameBazaar",
-                                                            "Cent",
-                                                            "0x Portal"
-                                                            ]))
+                            expect(dapps?.count).to(equal(4))
+                            expect(dapps?.map { $0.name }).to(equal([
+                                "Cryptokitties",
+                                "NameBazaar",
+                                "Cent",
+                                "0x Portal"
+                            ]))
                             
                             done()
                         }
