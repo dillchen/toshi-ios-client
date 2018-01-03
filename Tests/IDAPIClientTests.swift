@@ -164,14 +164,26 @@ class IDAPIClientTests: QuickSpec {
                 }
 
                 it("finds a contact") {
-                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "user")
+                    let mockTeapot = MockTeapot(bundle: Bundle(for: IDAPIClientTests.self), mockFilename: "contact")
                     subject = IDAPIClient(teapot: mockTeapot)
                     
-                    let username = "testUsername"
+                    let username = "designatednerd"
 
                     waitUntil { done in
                         subject.findContact(name: username) { user in
                             expect(user).toNot(beNil())
+                            
+                            expect(user?.name).to(equal("Ellen Shapiro"))
+                            expect(user?.paymentAddress).to(equal("123 Fake Street"))
+                            expect(user?.isApp).to(beFalse())
+                            expect(user?.reputationScore).to(equal(2.1))
+                            expect(user?.username).to(equal("designatednerd"))
+                            expect(user?.averageRating).to(equal(4.1))
+                            expect(user?.address).to(equal("Some ungodly long hex thing"))
+                            expect(user?.location).to(equal("Nijmegen"))
+                            expect(user?.about).to(equal("Moar Tests Always"))
+                            expect(user?.avatarPath).to(equal("https://frinkiac.com/meme/S08E14/661860.jpg?b64lines=V0hFTiBJVENIWSBQTEFZUyBTQ1JBVENIWSdTIApTS0VMRVRPTiBMSUtFIEEgWFlMT1BIT05FIAoKCgoKCgoKSEUgU1RSSUtFUyBUSEUgU0FNRSBSSUIgVFdJQ0UKSU4gU1VDQ0VTU0lPTiwgWUVUIEhFIFBST0RVQ0VTIApUV08gQ0xFQVJMWSBESUZGRVJFTlQgVE9ORVMu"))
+                            expect(user?.isPublic).to(beTrue())
                             done()
                         }
                     }

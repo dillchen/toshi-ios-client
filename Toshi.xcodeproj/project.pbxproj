@@ -161,6 +161,7 @@
 		33CF51391FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
 		33CF513A1FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
 		33CF513B1FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
+		33D2ECFC1FFD1F3A00AEFC4D /* contact.json in Resources */ = {isa = PBXBuildFile; fileRef = 33D2ECFB1FFD1F3900AEFC4D /* contact.json */; };
 		33F1B9A71FCC3E3900D186AB /* TokenUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F1B9A61FCC3E3900D186AB /* TokenUserTests.swift */; };
 		33F6D22E1FFD18E200AB0DCC /* userAfterImageUpdate.json in Resources */ = {isa = PBXBuildFile; fileRef = 33F6D22D1FFD18E100AB0DCC /* userAfterImageUpdate.json */; };
 		33F6D2301FFD1BED00AB0DCC /* userAfterDataUpdate.json in Resources */ = {isa = PBXBuildFile; fileRef = 33F6D22F1FFD1BEC00AB0DCC /* userAfterDataUpdate.json */; };
@@ -937,6 +938,7 @@
 		339959AC1FCEE74F00D69A01 /* EarlGrey.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EarlGrey.framework; path = Carthage/Build/iOS/EarlGrey.framework; sourceTree = "<group>"; };
 		33CF51341FD184AB00293FD1 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		33CF51381FD1952500293FD1 /* StringCaseListable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringCaseListable.swift; sourceTree = "<group>"; };
+		33D2ECFB1FFD1F3900AEFC4D /* contact.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contact.json; sourceTree = "<group>"; };
 		33F1B9A61FCC3E3900D186AB /* TokenUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUserTests.swift; sourceTree = "<group>"; };
 		33F6D22D1FFD18E100AB0DCC /* userAfterImageUpdate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userAfterImageUpdate.json; sourceTree = "<group>"; };
 		33F6D22F1FFD1BEC00AB0DCC /* userAfterDataUpdate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userAfterDataUpdate.json; sourceTree = "<group>"; };
@@ -2098,6 +2100,7 @@
 		D197BC65AA22A50C491B80E2 /* IDAPIClient */ = {
 			isa = PBXGroup;
 			children = (
+				33D2ECFB1FFD1F3900AEFC4D /* contact.json */,
 				33FD936C1FE95F4E0082B9D8 /* dapps.json */,
 				D197B707B59B3F92F8A4B3EC /* getLatestPublicUsers.json */,
 				D197B29F0030A48233E69AD9 /* nonExistingUser.json */,
@@ -2340,6 +2343,7 @@
 				33F6D22E1FFD18E200AB0DCC /* userAfterImageUpdate.json in Resources */,
 				D197B0C5E61A152AFA61B5DF /* testImage.png in Resources */,
 				D197B8B87F4A0DCA761DE9D6 /* retrieveUser.json in Resources */,
+				33D2ECFC1FFD1F3A00AEFC4D /* contact.json in Resources */,
 				D197B4425A9FE7A36B983DE1 /* getLatestPublicUsers.json in Resources */,
 				D197BDE13FECEEDB7511144E /* user.json in Resources */,
 				D197B2859F1B1E4BE895E760 /* transactionSkeleton.json in Resources */,
