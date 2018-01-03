@@ -37,8 +37,9 @@ class AppsAPIClientTests: QuickSpec {
                             expect(error).to(beNil())
 
                             guard let app = users?.first else {
-                                XCTFail("No user found!")
+                                fail("No user found!")
                                 done()
+                                
                                 return
                             }
                             
@@ -69,7 +70,7 @@ class AppsAPIClientTests: QuickSpec {
                             expect(error).to(beNil())
                             
                             guard let app = users?.first else {
-                                XCTFail("No user found!")
+                                fail("No user found!")
                                 done()
                                 return
                             }
