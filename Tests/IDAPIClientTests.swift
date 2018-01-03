@@ -255,10 +255,29 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.getLatestPublicUsers { users, error in
-                            DLog(String(describing: error))
+                            expect(users).toNot(beNil())
                             expect(error).to(beNil())
-                            expect(users!.count).to(equal(2))
-                            expect(users!.first!.about).to(equal("Latest public"))
+                            
+                            expect(users?.count).to(equal(2))
+                            
+                            expect(users?.map { $0.location }).to(equal([
+                                    "Oslo",
+                                    "Amsterdam"
+                                ]))
+                            expect(users?.map { $0.name }).to(equal([
+                                    "Yulia",
+                                    "Marijn Schilling"
+                                ]))
+                            
+                            expect(users?.map { $0.username }).to(equal([
+                                    "yuliav",
+                                    "marijnschilling"
+                                ]))
+                            expect(users?.map { $0.about }).to(equal([
+                                    "Latest public",
+                                    "Bit later public user"
+                                ]))
+                            
                             done()
                         }
                     }
